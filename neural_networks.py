@@ -26,10 +26,14 @@ class MLP:
         # Weight initialization based on activation function
         if self.activation_fn == 'relu':
             # He initialization for ReLU
-            self.W1 = np.random.randn(input_dim, hidden_dim) * np.sqrt(2.0 / input_dim)
-            self.W2 = np.random.randn(hidden_dim, output_dim) * np.sqrt(2.0 / hidden_dim)
+            self.W1 = np.random.randn(input_dim, hidden_dim) * np.sqrt(1.0 / input_dim)
+            self.W2 = np.random.randn(hidden_dim, output_dim) * np.sqrt(1.0 / hidden_dim)
+        elif self.activation_fn == 'tanh':
+            # LeCun initialization for tanh
+            self.W1 = np.random.randn(input_dim, hidden_dim) * np.sqrt(1.0 / input_dim)
+            self.W2 = np.random.randn(hidden_dim, output_dim) * np.sqrt(1.0 / hidden_dim)
         else:
-            # Xavier initialization for tanh and sigmoid
+            # Default to Xavier initialization
             limit_W1 = np.sqrt(6 / (input_dim + hidden_dim))
             self.W1 = np.random.uniform(-limit_W1, limit_W1, (input_dim, hidden_dim))
             limit_W2 = np.sqrt(6 / (hidden_dim + output_dim))
